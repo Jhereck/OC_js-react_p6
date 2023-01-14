@@ -1,32 +1,21 @@
-    async function getPhotographers() {
-        // Ceci est un exemple de données pour avoir un affichage de photographes de test dès le démarrage du projet, 
-        // mais il sera à remplacer avec une requête sur le fichier JSON en utilisant "fetch".
-        const response = await fetch('./data/photographers.json');
-        const array = await response.json();
-        const photographers = array.photographers;
-        console.log(photographers);
-
-
-        // et bien retourner le tableau photographers seulement une fois récupéré
-        return ({
-            photographers: [...photographers]})
+class App {
+    constructor() {
+        this.$photographersWrapper = document.querySelector('.photographer_section')
+        this.photographersApi = new PhotographersApi('./data/photographers.json')
     }
 
-    async function displayData(photographers) {
-        const photographersSection = document.querySelector(".photographer_section");
+    async main() {
+        const photographersData = await this.photographersApi.getPhotographers()
 
-        photographers.forEach((photographer) => {
-            const photographerModel = photographerFactory(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
-            photographersSection.appendChild(userCardDOM);
-        });
-    };
+        photographersData
+            .map(photographer => new PhotographerModel(photographer))
+            .forEach(photographer => {
 
-    async function init() {
-        // Récupère les datas des photographes
-        const { photographers } = await getPhotographers();
-        displayData(photographers);
-    };
-    
-    init();
-    
+            const Template = new PhotographerCard(photographer)
+            this.$photographersWrapper.appendChild(Template.createPhotographerCard())
+        })
+    }
+}
+
+const app = new App()
+app.main()

@@ -74,3 +74,24 @@ form input {
     border: none;
     border-radius: 5px;
 }
+
+.photographer_details {
+    display: flex;
+}
+.photograph-header {
+    display: block;
+}
+
+.media_section {
+    display: flex;
+}
+
+.media_section img, video {
+    height: 350px;
+    width: 300px;
+}
+
+.photographer_details img {
+    height: 200px;
+    width: 200px;
+}

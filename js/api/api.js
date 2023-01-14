@@ -6,8 +6,12 @@ class Api {
     async get() {
         return fetch(this._url)
         .then(res => res.json())
-        .then(res => res.photographers)
         .catch(err => console.log('an error occured', err))
+    }
+
+    async getPhotographerId() {
+        const url = new URLSearchParams(window.location.search)
+        return url.get('id')
     }
 }
 
@@ -17,6 +21,32 @@ class PhotographersApi extends Api {
     }
 
     async getPhotographers() {
-        return await this.get()
+        const res = await this.get()
+        return res.photographers
+    }
+
+        async getPhotographer() {
+        const id = await this.getPhotographerId()
+        const res = await this.get()
+        const onePhoto = res.photographers.filter(photo => photo.id === parseInt(id))
+        return onePhoto
+    }
+}
+
+class MediasApi extends Api {
+    constructor(url) {
+        super(url)
+    }
+
+        async getAllMedias() {
+        const res = await this.get()
+        return res.media
+    }
+
+    async getMedias() {
+        const id = await this.getPhotographerId()
+        const res = await this.get()
+        const mediasOnePhoto = res.media.filter(media => media.photographerId === parseInt(id))
+        return mediasOnePhoto
     }
 }
