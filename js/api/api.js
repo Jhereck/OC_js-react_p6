@@ -49,4 +49,28 @@ class MediasApi extends Api {
         const mediasOnePhoto = res.media.filter(media => media.photographerId === parseInt(id))
         return mediasOnePhoto
     }
+
+    async getMediasPerPopularity() {
+        const id = await this.getPhotographerId()
+        const res = await this.get()
+        const mediasOnePhoto = res.media.filter(media => media.photographerId === parseInt(id))
+        const mediaSorted = mediasOnePhoto.sort((a, b) => b.likes - a.likes)
+        return mediaSorted
+    }
+
+    async getMediasPerDate() {
+        const id = await this.getPhotographerId()
+        const res = await this.get()
+        const mediasOnePhoto = res.media.filter(media => media.photographerId === parseInt(id))
+        const mediaSorted = mediasOnePhoto.sort((a, b) => a.date - b.date)
+        return mediaSorted
+    }
+
+    async getMediasPerTitle() {
+        const id = await this.getPhotographerId()
+        const res = await this.get()
+        const mediasOnePhoto = res.media.filter(media => media.photographerId === parseInt(id))
+        const mediaSorted = mediasOnePhoto.sort((a, b) => a.title < b.title ? -1 : 1)
+        return mediaSorted
+    }
 }

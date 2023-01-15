@@ -25,8 +25,8 @@ class MediaCard {
         />
     `}
             </div>
-            <h2 class= "photographer_location">
-                <span>${this._media.title}, </span>
+            <h2 class= "details">
+                <span class="title">${this._media.title}, </span>
                 <span class='numberOfLikes ${this._media.id} ${this._media.likes}' onclick=addLike(${this._media.id})>${this._media.likes}</span>
             </h2>
             </a>
