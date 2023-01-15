@@ -13,6 +13,8 @@ class App {
             const header = new PhotographerModel(headerData[0])
             const headerTemplate = new PhotographerHeaderCard(header)
             this.$headerWrapper.appendChild(headerTemplate.createPhotographerHeaderCard())
+
+            
         }
 
         async mediasPhotographer() {
@@ -26,12 +28,15 @@ class App {
             })
         }
 
+
+
         async openContactModal() {
             const modalData = await this.photographersApi.getPhotographer()
             const modal = new PhotographerModel(modalData[0])
             const modalTemplate = new ModalCard(modal)
             this.$modalWrapper.appendChild(modalTemplate.createModalCard())
         }
+
 }
 
 const app = new App()
