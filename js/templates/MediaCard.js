@@ -17,12 +17,9 @@ class MediaCard {
         onclick="openModal(${this._media.id})"
         />
     ` : `
-        <video
-        alt="${this._media.title}"
-        src="/assets/images/${this._media.photographerId}/${this._media.video}"
-        type="video/mp4"
-        onclick="openModal(${this._media.id})"
-        />
+        <video controls>
+        <source src="/assets/images/${this._media.photographerId}/${this._media.video}" type="video/mp4">
+        </video>
     `}
             </div>
             <h2 class= "details">
